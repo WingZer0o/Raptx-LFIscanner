@@ -9,7 +9,8 @@ Local File Inclusion (LFI) scanner.
 | ------------- | ------------- |
 | -t / --target | Target of the host example: http://94.237.61.133:39139/index.php?language= |
 | -wc / --walkcount | The number of directories you want to walk up |
-| -h / --help | Specify the operating system to check |
+| -w / --wordlist | Specify path to your wordlist you want
+| -h / --help | Get help |
 
 ## Instalación / Installation
 ```
@@ -27,5 +28,5 @@ Local File Inclusion (LFI) scanner.
 
 `EXAMPLE:` **Linux LFI**
 ```python
-python3 LFIscanner.py -t http://94.237.61.133:39139/index.php?language= -wc 0 -os linux
+python3 LFIscanner.py -t http://83.136.253.25:53734/index.php?language= -wc 5 -w ~/Tools/Raptx-LFIscanner/payloads/linux.txt
 ```
