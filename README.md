@@ -8,6 +8,7 @@ Local File Inclusion (LFI) scanner.
 | COMMAND | DESCRIPTION |
 | ------------- | ------------- |
 | -t / --target | Target of the host example: http://94.237.61.133:39139/index.php?language= |
+| -th / --threads | (Optional): Amount of threads to execute requests in parallel in batch fashion |
 | -wc / --walkcount | The number of directories you want to walk up |
 | -w / --wordlist | Specify path to your wordlist you want
 | -h / --help | Get help |

