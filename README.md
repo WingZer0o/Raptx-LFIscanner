@@ -17,8 +17,8 @@ Local File Inclusion (LFI) scanner.
 > git clone https://github.com/R3LI4NT/LFIscanner
 
 > cd LFIscanner
-
-> pip3 install -r requirements.txt
+> python3 -m venv <myenv> (make a virtual directory to avoid installing system dependencies)   
+> pip install -r requirements.txt
 ```
 
 </br>
@@ -26,20 +26,7 @@ Local File Inclusion (LFI) scanner.
 </br>
 
 
-`EXAMPLE:` **Detectar payloads LFI**
+`EXAMPLE:` **Linux LFI**
 ```python
-python3 LFIscanner.py -t http://192.168.25.131/mutillidae/?page= -p <payload-file>
+python3 LFIscanner.py -t http://94.237.61.133:39139/index.php?language= -wc 0 -os linux
 ```
-
-![example](https://user-images.githubusercontent.com/75953873/177440070-5526fe9c-8455-492e-b0f6-eb47dfef74d6.png)
-
-`EXAMPLE:` **Extraer información del payload LFI**
-```python
-python3 LFIscanner.py -t http://192.168.25.131/mutillidae/?page= --payload <payload-file> --extract
-```
-
-![example_2](https://user-images.githubusercontent.com/75953873/177440180-2e4eebbd-1b5b-44af-8d09-0b1e9ba4175e.png)
-
-</br>
-
-Payloads file by: https://github.com/emadshanab/LFI-Payload-List
