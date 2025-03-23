@@ -9,7 +9,6 @@ Local File Inclusion (LFI) scanner.
 | ------------- | ------------- |
 | -t / --target | Target of the host example: http://94.237.61.133:39139/index.php?language= |
 | -wc / --walkcount | The number of directories you want to walk up |
-| -os / --extract | Extract content |
 | -h / --help | Specify the operating system to check |
 
 ## Instalación / Installation
