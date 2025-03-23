@@ -7,14 +7,14 @@ Local File Inclusion (LFI) scanner.
 ## Usage
 | COMMAND | DESCRIPTION |
 | ------------- | ------------- |
-| -t / --target | Target |
-| -p / --payload | Payload file |
-| -e / --extract | Extract content |
-| -h / --help | Request help |
+| -t / --target | Target of the host example: http://94.237.61.133:39139/index.php?language= |
+| -wc / --walkcount | The number of directories you want to walk up |
+| -os / --extract | Extract content |
+| -h / --help | Specify the operating system to check |
 
 ## Instalación / Installation
 ```
-> git clone https://github.com/R3LI4NT/LFIscanner
+> git clone https://github.com/WingZer0o/Raptx-LFIscanner
 
 > cd LFIscanner
 > python3 -m venv <myenv> (make a virtual directory to avoid installing system dependencies)   
