@@ -15,7 +15,7 @@ Local File Inclusion (LFI) scanner.
 
 ## Instalación / Installation
 ```
-> git clone https://github.com/WingZer0o/Raptx-LFIscanner
+> git clone https://github.com/R4ptX/Raptx-LFIscanner
 
 > cd LFIscanner
 > python3 -m venv <myenv> (make a virtual directory to avoid installing system dependencies)   
