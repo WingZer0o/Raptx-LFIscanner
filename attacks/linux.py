@@ -2,7 +2,7 @@ import requests
 from banner.banner import END, GREEN_NORMAL
 
 class LinuxLFI:
-    def execute_linux_attack(file_paths, parse):
+    def execute_attack(file_paths, parse):
         for path in file_paths:
             path = path.replace("\n", "")
             print("=" * 60)

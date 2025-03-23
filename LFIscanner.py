@@ -14,7 +14,7 @@ if parse.target and parse.walkcount:
 	print("\nURL target ->> {}\n".format(parse.target))
 	file_paths = Checker.get_payload_file(parse)
 	if parse.operatingsystem == 'linux':
-		LinuxLFI.execute_linux_attack(file_paths, parse)
+		LinuxLFI.execute_attack(file_paths, parse)
 else:
 	print(f"{RED_NORMAL}[ERR0R]{END} Argument invalid\nRequest help : python3 LFIscanner.py --help\nExit the script...")
 	time.sleep(2)
