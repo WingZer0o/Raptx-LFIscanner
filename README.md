@@ -18,6 +18,7 @@ Local File Inclusion (LFI) scanner.
 
 > cd LFIscanner
 > python3 -m venv <myenv> (make a virtual directory to avoid installing system dependencies)   
+> source myenv/bin/activate
 > pip install -r requirements.txt
 ```
 
