@@ -12,7 +12,7 @@ class LinuxLFI:
         batch = []
         for i in range(len(file_paths)):
             path = None
-            if parse.nonrecursive:
+            if parse.nonrecursivefilter:
                 path = LinuxLFI.get_non_recursive_filter_walk_count(file_paths[i], int(parse.walkcount))
             else:
                 path = LinuxLFI.get_walk_count(file_paths[i], int(parse.walkcount))
