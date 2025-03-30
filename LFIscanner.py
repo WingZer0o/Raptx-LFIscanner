@@ -9,6 +9,7 @@ parse.add_argument("-t","--target",  help="Target of the host example: http://94
 parse.add_argument("-wc", "--walkcount", help="Number of directories to walk up", required=True)
 parse.add_argument("-w", "--wordlist", help="Specify path to your wordlist you want", required=True)
 parse.add_argument('-th', '--threads', help="(Optional): Amount of threads to execute requests in parallel in batch fashion", required=False)
+parse.add_argument('-nrf', '--nonrecursivefilter', action="store_true", help="An argument to help by pass non recursive path traversals filters by appending ....// instead of ../", required=False)
 parse = parse.parse_args()
 
 
