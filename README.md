@@ -12,6 +12,7 @@ Local File Inclusion (LFI) scanner.
 | -wc / --walkcount | The number of directories you want to walk up |
 | -w / --wordlist | Specify path to your wordlist you want
 | -h / --help | Get help |
+| -nrf / --nonrecursivefilter | An argument to help by pass non recursive path traversals filters by appending ....// instead of ../ |
 
 ## Instalación / Installation
 ```
