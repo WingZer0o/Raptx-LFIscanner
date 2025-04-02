@@ -18,6 +18,12 @@ END = '\033[0m'
 RED_NORMAL = '\033[0;31m'
 GREEN_NORMAL = '\033[0;32m'
 
+RED_PLAIN = '\033[91m'      # Added for LFIscanner
+GREEN_PLAIN = '\033[92m'    # Added for LFIscanner
+YELLOW_PLAIN = '\033[93m'   # Added for LFIscanner
+BLUE_PLAIN = '\033[94m'     # Added for LFIscanner
+CYAN_PLAIN = '\033[96m'     # Added for LFIscanner
+END_PLAIN = '\033[0m'       # Added for LFIscnner
 
 def banner():
 	os.system('clear')
