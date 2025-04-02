@@ -1,4 +1,5 @@
-from banner.banner import *
+from utils.validators import validate_positive_integer, validate_url
+from banner.banner import banner, RED, GREEN, YELLOW, BLUE, CYAN, END
 from attacks.linux import LinuxLFI
 import argparse
 import asyncio
@@ -7,32 +8,7 @@ import pathlib
 import urllib.parse
 from tqdm import tqdm
 
-RED = "\033[91m"
-GREEN = "\033[92m"
-YELLOW = "\033[93m"
-BLUE = "\033[94m"
-CYAN = "\033[96m"
-END = "\033[0m"  
-
 vulnerabilities_found = False
-
-def validate_positive_integer(value):
-    """Validate positive integers for walkcount."""
-    try:
-        ivalue = int(value)
-        if ivalue <= 0:
-            raise argparse.ArgumentTypeError(f"{RED}[ERROR]{END} {value} is not a positive integer")
-        return ivalue
-    except ValueError:
-        raise argparse.ArgumentTypeError(f"{RED}[ERROR]{END} {value} is not a valid integer")
-
-
-def validate_url(url):
-    """Validate the target URL format."""
-    parsed_url = urllib.parse.urlparse(url)
-    if not all([parsed_url.scheme, parsed_url.netloc]):
-        raise argparse.ArgumentTypeError(f"{RED}[ERROR]{END} {url} is not a valid URL")
-    return url
 
 
 def parse_arguments():
@@ -102,19 +78,18 @@ def report_vulnerability(url):
 
 
 class CustomLinuxLFI(LinuxLFI):
-    @staticmethod
-    async def execute_attack_parallel(payloads, args):
+    async def execute_attack_parallel(self, payloads, args):
         global vulnerabilities_found
         for payload in payloads:
             target_url = f"{args.target}{payload}"
-            
+
             try:
-                response = await LinuxLFI.perform_request(target_url, args)
-                
-                
-                if response.status == 200:  
+                # Changed from LinuxLFI.perform_request to super() call
+                response = await super().perform_request(target_url, args)
+
+                if response.status == 200:
                     report_vulnerability(target_url)
-                    
+
             except Exception as e:
                 print(f"{RED}[ERROR]{END} Error with URL: {target_url} - {str(e)}")
 
