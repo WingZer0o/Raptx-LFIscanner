@@ -1,5 +1,12 @@
 from utils.validators import validate_positive_integer, validate_url
-from banner.banner import banner, RED, GREEN, YELLOW, BLUE, CYAN, END
+from banner.banner import (
+    RED_PLAIN as RED,
+    GREEN_PLAIN as GREEN, 
+    YELLOW_PLAIN as YELLOW,
+    BLUE_PLAIN as BLUE,
+    CYAN_PLAIN as CYAN,
+    END_PLAIN as END,
+    banner
 from attacks.linux import LinuxLFI
 import argparse
 import asyncio
