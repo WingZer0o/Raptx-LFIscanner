@@ -1,12 +1,12 @@
-#!/usr/bind/env python
-#_*_ coding: utf8 _*_
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
 
 import os
 
 autor = '\033[1;41;37m.:Raptx:.\033[0m'
 tool = '\033[1;44;37m.:.:SIMPLE LFI SCANNER:.:.\033[0m'
 
-#COLORS
+# COLORS
 RED = '\033[1;31m'
 BLUE = '\033[1;34m'
 GREEN = '\033[1;32m'
@@ -20,8 +20,8 @@ GREEN_NORMAL = '\033[0;32m'
 
 
 def banner():
-	os.system('clear')
-	print(f"""
+    os.system('clear' if os.name == 'posix' else 'cls')  # Cross-platform clear screen
+    print(f"""
 {CYAN}██╗     ███████╗██╗{WHITE}      ███████╗ ██████╗ █████╗ ███╗   ██╗███╗   ██╗███████╗██████╗ {END}
 {CYAN}██║     ██╔════╝██║{WHITE}      ██╔════╝██╔════╝██╔══██╗████╗  ██║████╗  ██║██╔════╝██╔══██╗{END}
 {CYAN}██║     █████╗  ██║{WHITE}█████╗███████╗██║     ███████║██╔██╗ ██║██╔██╗ ██║█████╗  ██████╔╝{END}
@@ -29,5 +29,6 @@ def banner():
 {CYAN}███████╗██║     ██║{WHITE}      ███████║╚██████╗██║  ██║██║ ╚████║██║ ╚████║███████╗██║  ██║{END}
 {CYAN}╚══════╝╚═╝     ╚═╝{WHITE}      ╚══════╝ ╚═════╝╚═╝  ╚═╝╚═╝  ╚═══╝╚═╝  ╚═══╝╚══════╝╚═╝  ╚═╝{END}
 
-\t\t\t     {tool}
-\t\t\t\t{WHITE}Github: {autor}{END}""")
+                             {tool}
+                                {WHITE}Github: {autor}{END}
+""")
